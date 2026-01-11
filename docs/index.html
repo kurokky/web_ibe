@@ -202,11 +202,11 @@
         @media (max-width: 850px) {
             .hero-area { flex-direction: column; gap: 20px; }
             .app-icon-wrapper { order: 1; margin-bottom: 20px; }
-            .bubbles-column { order: 2; max-width: 100%; width: 90%; }
-            .bubbles-left, .bubbles-right { align-items: center; }
-            .bubble { margin: 0 0 20px 0 !important; transform-origin: center bottom; }
-            .bubble::after { top: auto; bottom: -23px; left: 50%; margin-left: -10px; margin-top: 0; border-width: 20px 10px 0 10px; border-color: #000 transparent transparent transparent; }
-            .bubble::before { top: auto; bottom: -16px; left: 50%; margin-left: -7px; margin-top: 0; border-width: 14px 7px 0 7px; border-color: #fff transparent transparent transparent; }
+            .bubbles-column { odisplay:none;}
+            .bubbles-left, .bubbles-right {display:none; }
+            .bubble { display:none; }
+            .bubble::after {display: none;}
+            .bubble::before { display:none; }
         }
 
         /* --- Cards --- */
@@ -283,10 +283,10 @@
             <div class="title-area">
                 <h1>Iron Beads Editor</h1>
                 <p class="subtitle" data-i18n="subtitle">アイロンビーズ作家によるアイロンビーズ作家のためのツール</p>
-                <a href="./Iron_Beads_Editor_1.0.2_universal.dmg" class="btn-dl" data-i18n="btn_dl">Version 1.0.2をダウンロード (Mac)</a>
+                <a href="./Iron_Beads_Editor_1.0.2_universal.dmg" class="btn-dl" data-i18n="btn_dl">Version <span class="app_version">1.0.2</span>をダウンロード (Mac)</a>
                 
                 <p class="web-version-link">
-                    <a href=",/web.html" target="_blank" data-i18n="link_web">Web用簡易版はこちら →</a>
+                    <a href="./web.html" target="_blank" data-i18n="link_web">Web用簡易版はこちら →</a>
                 </p>
             </div>
         </div>
@@ -388,7 +388,7 @@
     </div>
 
     <footer>
-        Iron Beads Editor v1.0.0<br>
+        Iron Beads Editor v<span class="app_version">1.0.2</span><br>
         development by kurokky. &copy; 2023-<span id="this_year"></span> All rights reserved.
     </footer>
 
@@ -529,6 +529,27 @@
                 }
             });
         }, observerOptions);
+
+
+        async function loadVersion() {
+            try {
+                const response = await fetch('./version.json');
+                if (!response.ok) {
+                    throw new Error('ファイルの取得に失敗しました');
+                }
+                const data = await response.json();
+                const versionElements = document.querySelectorAll('.app_version');
+                versionElements.forEach(element => {
+                    element.textContent = data.version;
+                });
+                document.getElementById('btn_dl').textContent = `/Iron_Beads_Editor_${data.version}_universal.dmg`;
+            } catch (error) {
+                console.error('エラー:', error);
+            }
+        }
+
+        // 実行
+        loadVersion();
 
         document.querySelectorAll('.feature-card').forEach(card => observer.observe(card));
         document.querySelectorAll('.bubble').forEach(bubble => observer.observe(bubble));
