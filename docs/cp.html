@@ -1,0 +1,532 @@
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>photoshop風選択範囲</title>
+<link rel="icon" href="./fav.svg" type="image/svg+xml">
+</head>
+<body>
+<h1>photoshop風選択範囲</h1>
+<main id="main">
+<ul>
+	<li>
+    <div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</li>
+	<li>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+	</li>
+	<li>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+	</li>
+	<li>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+	</li>
+	<li>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+	</li>
+	<li>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+	</li>
+</ul>
+</main>
+<p>ctrl(command)+Dで選択解除</p>
+<style>
+
+:root{
+  --box-size:24px;
+}
+
+h1{
+  text-align:center;
+  font-size:100%;
+}
+
+p{
+  text-align:center;
+}
+
+*{
+list-style:none;
+}
+
+main{
+	padding: 16px;
+	display: grid;
+	justify-items: center;
+	align-items: center;
+}
+li {
+	display: flex;
+	width: auto;
+}
+
+div{
+	border: 0.2px solid #000;
+	border-bottom: none;
+	border-right: none;
+	text-align: center;
+	width:var(--box-size);
+	height:var(--box-size);
+	text-align: center;
+}
+
+li:last-child div{
+	border-bottom: 0.2px solid #000;
+}
+
+div:last-of-type {
+	border-right: 0.2px solid #000;
+}
+
+.selecting{
+  background:#ccc;
+}
+
+.sb_trbl{
+ background-image:linear-gradient(to left, #000 4px, #fff 4px), linear-gradient(to bottom, #000 4px, #fff 4px), linear-gradient(to right, #000 4px, #fff 4px), linear-gradient(to bottom, #000 4px, #fff 4px);
+ background-size:8px 1px, 1px 8px, 8px 1px, 1px 8px;
+ background-repeat:repeat-x, repeat-y, repeat-x, repeat-y;
+ background-position:left top, right, bottom, left;
+ animation:ani-sb-trbl 1s infinite linear;
+}
+
+@keyframes ani-sb-trbl{
+  0% {
+    background-position:top left,top right ,left bottom  ,top left ;
+  }
+  100% {
+    background-position:right top, right bottom,right bottom, left bottom;
+  }
+}
+
+
+.sb_tbl{
+ background-image:linear-gradient(to right, #000 4px, #fff 4px), linear-gradient(to top, #000 4px, #fff 4px), linear-gradient(to left, #000 4px, #fff 4px);
+ background-size:8px 1px,1px 8px, 8px 1px;
+ background-repeat:repeat-x,repeat-y, repeat-x;
+ background-position:top,left, left;
+ animation: ani-sb-tbl 1s infinite linear;
+}
+
+
+@keyframes ani-sb-tbl{
+  0% {
+    background-position:left top, left top, bottom left;
+  }
+  100% {
+    background-position:right top , left bottom, bottom right;
+  }
+}
+
+
+.sb_tb{
+ background-image:linear-gradient(to right, #000 4px, #fff 4px), linear-gradient(to left, #000 4px, #fff 4px);
+ background-size:8px 1px, 8px 1px;
+ background-repeat:repeat-x, repeat-x;
+ background-position:top right, bottom left;
+ animation: ani-tb 1s infinite linear;
+}
+
+
+@keyframes ani-tb{
+  0% {
+    background-position:top left,bottom left;
+  }
+  100% {
+    background-position:top right,bottom right;
+  }
+}
+
+
+.sb_trb{
+ background-image :linear-gradient(to right, #000 4px, #fff 4px), linear-gradient(to bottom, #000 4px, #fff 4px), linear-gradient(to left, #000 4px, #fff 4px);
+ background-size:8px 1px,1px 8px, 8px 1px;
+ background-repeat:repeat-x,repeat-y, repeat-x;
+ background-position:top, right, bottom;
+ animation: ani-trb 1s infinite linear;
+}
+
+@keyframes ani-trb{
+  0% {
+    background-position:top left, right top, bottom left;
+  }
+  100% {
+    background-position:top right, right bottom,bottom right;
+  }
+}
+
+.sb_trl{
+ background-image:linear-gradient(to right, #000 4px, #fff 4px), linear-gradient(to top, #000 4px, #fff 4px), linear-gradient(to bottom, #000 4px, #fff 4px);
+ background-size: 8px 1px,1px 8px, 1px 8px;
+ background-repeat:repeat-x,repeat-y, repeat-y;
+ background-position:top,left bottom, right;
+ animation: ani-sb-trl 1s infinite linear;
+}
+
+
+@keyframes ani-sb-trl{
+  0% {
+    background-position:left top,top left,top right;
+  }
+  100% {
+    background-position:right top,bottom left,right bottom;
+  }
+}
+
+
+.sb_rl{
+ background-image:linear-gradient(to bottom, #000 4px, #fff 4px), linear-gradient(to top, #000 4px, #fff 4px);
+ background-size:1px 8px, 1px 8px;
+ background-repeat: repeat-y, repeat-y;
+ background-position:left, right;
+ animation: ani-sb-rl 1s infinite linear;
+}
+
+
+@keyframes ani-sb-rl{
+  0% {
+    background-position:left top, top right;
+  }
+  100% {
+    background-position:left bottom, bottom right;
+  }
+}
+
+
+.sb_rbl{
+ background-image:linear-gradient(to right, #000 4px, #fff 4px),linear-gradient(to top, #000 4px, #fff 4px), linear-gradient(to bottom, #000 4px, #fff 4px);
+ background-size: 8px 1px,1px 8px, 1px 8px;
+ background-repeat: repeat-x,repeat-y, repeat-y;
+ background-position:bottom,left, right;
+ animation: ani-sb-rbl 1s infinite linear;
+}
+
+@keyframes ani-sb-rbl{
+  0% {
+    background-position:bottom left, top left , top right;
+  }
+  100% {
+    background-position:bottom right, bottom left, bottom right;
+  }
+}
+
+.sb_b{
+ background-image:linear-gradient(to right, #000 4px, #fff 4px);
+ background-size:8px 1px;
+ background-repeat:repeat-x;
+ background-position:bottom;
+ animation:ani-sb-b 1s infinite linear;
+}
+
+@keyframes ani-sb-b{
+  0% {
+    background-position:left bottom;
+  }
+  100% {
+    background-position:right bottom;
+  }
+}
+
+.sb_l{
+ background-image:linear-gradient(to bottom, #000 4px, #fff 4px);
+ background-size:1px 8px;
+ background-repeat:repeat-y;
+ background-position:left;
+ animation:ani-sb-l 1s infinite linear;
+}
+
+@keyframes ani-sb-l{
+  0% {
+    background-position:left top;
+  }
+  100% {
+    background-position:left bottom;
+  }
+}
+
+.sb_r{
+ background-image:linear-gradient(to bottom, #000 4px, #fff 4px);
+ background-size:1px 8px;
+ background-repeat:repeat-y;
+ background-position:right;
+ animation:ani-sb-r 1s infinite linear;
+}
+
+@keyframes ani-sb-r{
+  0% {
+    background-position:right top ;
+  }
+  100% {
+    background-position:right bottom
+  }
+}
+
+.sb_t{
+ background-image:linear-gradient(to left, #000 4px, #fff 4px);
+ background-size:8px 1px;
+ background-repeat:repeat-x;
+ background-position:top;
+ animation:ani-sb-t 1s infinite linear;
+}
+
+@keyframes ani-sb-t{
+  0% {
+    background-position:top left;
+  }
+  100% {
+    background-position:top right;
+  }
+}
+
+
+.sb_tl{
+ background-image:linear-gradient(to right, #000 4px, #fff 4px), linear-gradient(to bottom, #000 4px, #fff 4px);
+ background-size:8px 1px,1px 8px;
+ background-repeat: repeat-x,repeat-y;
+ background-position:top,left;
+ animation:ani-sb-tl 1s infinite linear;
+}
+
+
+@keyframes ani-sb-tl{
+  0% {
+    background-position:top left, left top;
+  }
+  100% {
+    background-position:right top , left bottom;
+  }
+}
+
+.sb_tr{
+ background-image:linear-gradient(to right, #000 4px, #fff 4px), linear-gradient(to bottom, #000 4px, #fff 4px);
+ background-size:8px 1px,1px 8px;
+ background-repeat:repeat-x,repeat-y,repeat-x,repeat-y;
+ background-position:left top,right 0px;
+  animation:ani-sb-tr 1s infinite linear;
+}
+
+@keyframes ani-sb-tr{
+  0% {
+    background-position:top left, right top;
+  }
+  100% {
+    background-position:right top, right bottom;
+  }
+}
+
+
+
+.sb_rb{
+ background-image:linear-gradient(to right, #000 4px, #fff 4px), linear-gradient(to bottom, #000 4px, #fff 4px);
+ background-size:8px 1px,1px 8px;
+ background-repeat: repeat-x,repeat-y;
+ background-position:left bottom,right bottom;
+ animation:ani-sb-rb 1s infinite linear;
+}
+
+@keyframes ani-sb-rb{
+  0% {
+    background-position:left bottom,top right;
+  }
+  100% {
+    background-position:right bottom,bottom right;
+  }
+}
+
+.sb_bl{
+ background-image:linear-gradient(to right, #000 4px, #fff 4px), linear-gradient(to bottom, #000 4px, #fff 4px);
+ background-size:8px 1px,1px 8px;
+ background-repeat: repeat-x,repeat-y,repeat-x,repeat-y;
+ background-position:left bottom,left 0px;
+ animation:ani-sb-bl 1s infinite linear;
+}
+
+@keyframes ani-sb-bl{
+  0% {
+    background-position:left bottom, left top;
+  }
+  100% {
+    background-position:right bottom, left bottom;
+  }
+}
+
+</style>
+<script>
+//let selecting_mode = true
+let is_mouse_down = false
+
+document.body.addEventListener('keydown', event =>{
+  if (event.ctrlKey && event.key == "c"){
+    event.preventDefault()
+  }
+  if (event.ctrlKey && event.key == "v"){
+    event.preventDefault()
+  }
+  if (event.ctrlKey && event.key == "x"){
+    event.preventDefault()
+  }
+  if (event.ctrlKey && event.key == "d"){
+    event.preventDefault()
+    restoreSelection()
+  }
+})
+
+
+function restoreSelection(){
+  for (div of main.querySelectorAll(".selecting")){
+   div.removeAttribute("class")
+  }
+}
+
+
+const main = document.getElementById('main')
+
+main.querySelectorAll("div").forEach((div) =>{
+  div.addEventListener("mousedown", event =>{
+    is_mouse_down = true
+    if (!div.classList.contains("selecting")){
+      div.classList.add("selecting")
+      addAnimationCss()
+    }
+  })
+
+  div.addEventListener("mouseup", event =>{
+    is_mouse_down = false
+  })
+
+  div.addEventListener("mouseover", event =>{
+    if (is_mouse_down){
+      if (!div.classList.contains("selecting")){
+        div.classList.add("selecting")
+        addAnimationCss()
+      }
+    }
+ })
+});
+
+function checkSelectingList(){
+  const selecting_list = []
+  const css_list = []
+  const rowMax = main.querySelector("ul li").querySelectorAll("div").length
+  main.querySelectorAll("div").forEach((div) =>{
+    if (div.classList.contains("selecting")){
+      selecting_list.push(1)
+    }else{
+      selecting_list.push(0)
+    }
+  })
+  
+  selecting_list.forEach((is_selecting, index) => {
+    const position_index = []
+    //選択してない時は空のリスト
+    if (is_selecting == 0){
+      css_list.push(position_index)
+      return
+    }
+    //以降selectingがあったもの
+    //一番上の段
+    if (index < (rowMax-1)){
+      position_index.push(0)
+    }else{
+      //任意の位置より上が選択されてない時
+      if (selecting_list[index-rowMax] !== 1){
+        position_index.push(0)
+      }
+    }
+    //左端
+    if (index%rowMax == 0 ){
+      position_index.push(3)
+    }
+    //左端じゃなくて左側が選択されてない時
+    if (index%rowMax != 0 && selecting_list[index-1] !== 1 ){
+      position_index.push(3)
+    }
+    //右端
+    if ((index+1)%rowMax == 0){
+      position_index.push(1)
+    }
+    //右端じゃなくて右側が選択されてない時
+    if ((index+1)%rowMax != 0 ){
+      //左右とも選択じゃない時
+      if( selecting_list[index-1] === 1 && selecting_list[index+1] !== 1){
+        position_index.push(1)
+      }else if (selecting_list[index+1] !== 1){
+        position_index.push(1)
+      }
+    }
+    //一番下の段
+    if (!selecting_list[index + rowMax]){
+      position_index.push(2)
+      //一番下じゃなくて下のマスが選択されてない時
+    }else if ( selecting_list[index+rowMax] !== 1 ){
+      position_index.push(2)
+    }
+    css_list.push(position_index)
+  })
+  return css_list
+}
+
+
+function addAnimationCss(){
+  const css_list = checkSelectingList()
+  const css_prefix = "sb_"
+  const css_pos = ["t","r","b","l"]
+  main.querySelectorAll("div").forEach((div,index) => {
+    const indexes = css_list[index].sort()
+    if (!div.classList.contains("selecting")){
+      return
+    }
+    //面倒なので一旦全部削除
+    div.removeAttribute("class")
+    div.classList.add("selecting")
+    //選択範囲だけど線が必要ない時
+    if (indexes.length == 0){
+      return
+    }
+    let css_text = css_prefix
+    for (index of indexes){
+      css_text += css_pos[index]
+    }
+    div.classList.add(css_text)
+  })
+}
+
+</script>
+</body>
+</html>

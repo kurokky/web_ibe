@@ -1,0 +1,336 @@
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iron Beads Editor</title>
+<script src="./js/html2canvas.min.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/main.css" />
+<link rel="stylesheet" type="text/css" href="./css/print.css" media="print" />
+<link rel="icon" href="./fav.svg" type="image/svg+xml">
+<meta property="og:title" content="Iron Beads Editor -アイロンビーズエディタ-" />
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://bu-kurokky.github.io/ibe/" />
+<meta property="og:image" content="https://bu-kurokky.github.io/IBE/ibe_ogp.png" />
+<meta property="og:site_name" content="Iron Beads Editor -アイロンビーズエディタ-" />
+<meta property="og:description" content="App Of the iron beads creator, By the beads creator, For the beads creator." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:description" content="App Of the iron beads creator, By the beads creator, For the beads creator." />
+<meta name="twitter:title" content="Iron Beads Editor -アイロンビーズエディタ-" />
+<meta name="twitter:site" content="@black_tree" />
+<meta name="twitter:image" content="https://bu-kurokky.github.io/IBE/ibe_ogp.png" />
+<meta name="twitter:creator" content="@black_tree" />
+</head>
+<body>
+<header>
+<ul>
+<li><h1><a href=""><img src="./fav.svg" width="26" height="26"></a></h1></li>
+<li class="split_right_line">W <input id="w" type="number" name="w" value="30" maxlength="3"> x H <input id="h" type="number" name="h" value="30" maxlength="3"> 
+	<button data-btn="make"><span class="ja">新規作成</span><span class="en">New</span></button>
+</li>
+<li>
+	<select name="addKind" id="addKind">
+		<option value="0">上</option>
+		<option value="1">下</option>
+		<option value="2">左</option>
+		<option value="3">右</option>
+	</select> 
+	<input id="colum" type="number" name="colum" value="1" maxlength="2"><span class="ja"> 行(列)</span><span class="en"> Rows(Columns)</span>
+	<select name="addType" id="addType">
+		<option value="+">追加</option>
+		<option value="-">削除</option>
+	</select>
+	<button data-btn="add"><span class="ja">実行</span><span class="en">Run</span></button>
+</li>
+<li id="replace">
+<span class="en">Replace&nbsp;</span>
+<label>
+<input type="text" name="before_color" maxlength="9" id="before_color_code">
+<input type="color" id="before_color">
+</label>
+<span class="ja">を</span><span class="en">&nbsp;->&nbsp;</span>
+<label>
+<input type="text" name="after_color" maxlength="9" id="after_color_code">
+<input type="color" id="after_color">
+</label>
+<span class="ja">に</span>
+<button data-btn="replace"><span class="ja">置換</span><span class="en">Run</span></button>
+</li>
+<li>
+<button data-btn="x2"><span class="ja">2べぇだ！</span><span class="en">Kai○kenx2</span></button>
+<button data-btn="x3"><span class="ja">3べぇだ！</span><span class="en">Kai○kenx3</span></button>
+</li>
+<li id="help">
+<button data-btn="help"><svg style="width:26px;height:26px"><use xlink:href="./img/help.svg#help"></use></svg></button>
+</li>
+</header>
+<aside>
+	<ul>
+		<li>
+			<label><input id="json_file" type="file" name="file" accept=".json">
+			<svg style="width:26px;height:26px"><use xlink:href="./img/upload.svg#upload"></use></svg>
+			</label>
+			<p class="ja">以前に保存したjsonを指定して続きから作業できます。</p>
+			<p class="en">You can specify a previously saved json to continue working from.</p>
+		</li>
+		<li>
+			<button data-btn="download">
+			<svg style="width:26px;height:26px"><use xlink:href="./img/dl_.svg#dl"></use></svg>
+			</button>
+			<p class="ja">作成中のデータを独自のjsonファイルとして自分のPCに保存します。</p>
+			<p class="en">Save the created data as json on your own PC.</p>
+		</li>
+		<li class="split_bottom_line">
+			<button data-btn="capture">
+			<svg style="width:26px;height:26px"><use xlink:href="./img/camera.svg#camera"></use></svg>
+			</button>
+			<p class="ja">作成中のデータを画像(png)ファイルとして保存します。</p>
+			<p class="en">Save data as an image (png) file.</p>
+		</li>
+		<li>
+			<button data-btn="undo">
+			<svg style="width:26px;height:26px"><use xlink:href="./img/undo.svg#undo"></use></svg>
+			</button>
+			<p class="ja">動作を1つ前に戻します。(Ctrl+Zキー)</p>
+			<p class="en">Undo(Ctrl+Z)</p>
+		</li>
+		<li>
+			<button data-btn="redo">
+			<svg style="width:26px;height:26px"><use xlink:href="./img/redo.svg#redo"></use></svg>
+			</button>
+			<p class="ja">動作を次の動作に戻します。(Ctrl+Shift+Zキー)</p>
+			<p class="en">Redo(Ctrl+Shift+Z)</p>
+		</li>
+		<li>
+			<button data-btn="+">
+			<svg style="width:26px;height:26px"><use xlink:href="./img/zoom_in_.svg#zoom_in"></use></svg>
+			</button>
+			<p class="ja">ドット幅を拡大(Shift+マウススクロールで拡大幅が大きくなります)</p>
+			<p class="en">Zoom in dots width. (Shift+mouse scroll buttons will expand larger)</p>
+		</li>
+		<li>
+			<button data-btn="-">
+			<svg style="width:26px;height:26px"><use xlink:href="./img/zoom_out_.svg#zoom_out"></use></svg>
+			</button>
+			<p class="ja">ドット幅を縮小(Shift+マウススクロールで縮小幅が大きくなります)</p>
+			<p class="en">Zoom out dots width. (Shift+mouse scroll buttons will shrink larger)</p>
+		</li>
+		<li>
+			<button data-btn="reverse">
+			<svg style="width:26px;height:26px"><use xlink:href="./img/reverse_.svg#reverse"></use></svg>
+			</button>
+			<p class="ja">作成中のデータを左右反転します。(Rキー)</p>
+			<p class="en">Reverses the edited data left and right. (R)</p>
+		</li>
+		<!--
+		<li>
+			<label class="switch"><input type="checkbox" id="crop_mode"><img src="./img/crop.svg" width="26" height="26"><span></span></label>
+		</li>
+		-->
+		<li class="split_bottom_line">
+			<label class="switch">
+				<input type="checkbox" id="split_mode">
+				<svg style="width:26px;height:26px"><use xlink:href="./img/mirror.svg#mirror"></use></svg>
+				<span></span>
+			</label>
+			<p class="ja">左右対称になる部分を塗りつぶします。(Bキー)</p>
+			<p class="en">Fills in symmetrical areas. (B)</p>
+		</li>
+		<li>
+			<button data-btn="pen" class="mode">
+			<svg style="width:26px;height:26px"><use xlink:href="./img/pen.svg#pen"></use></svg>
+			<span></span></button>
+			<p class="ja">ドットモード(1キー)</p>
+			<p class="en">Dot(1)</p>
+		</li>
+		<li>
+			<button data-btn="line" class="mode inactive">
+			<svg style="width:26px;height:26px"><use xlink:href="./img/ruler.svg#ruler"></use></svg><span></span></button>
+			<p class="ja">直線モード(2キー)※斜めは未対応</p>
+			<p class="en">Straight line(2)*Diagonal not supported</p>
+		</li>
+		<li>
+			<button data-btn="bucket" class="mode inactive">
+			<svg style="width:26px;height:26px"><use xlink:href="./img/bucket.svg#bucket"></use></svg><span></span></button>
+			<p class="ja">塗りつぶしモード(3キー)</p>
+			<p class="en">Fill(3)</p>
+		</li>
+		<li class="split_bottom_line">
+			<button data-btn="eraser" class="mode inactive">
+				<svg style="width:26px;height:26px"><use xlink:href="./img/eraser_.svg#eraser"></use></svg><span></span></button>
+			<p class="ja">消しゴムモード(4キー)</p>
+			<p class="en">Eraser(4)</p>
+		</li>
+		<li>
+			<div id="colors">
+				<label><input type="color" id="color" value="#000000"><span id="color_none"></span></label>
+				<label><input type="color" id="bgcolor"><span id="bg_none"></span></label>
+			</div>
+		</li>
+		<li class="split_bottom_line">
+			<button data-btn="bg_color_off">
+				<svg style="width:26px;height:26px"><use xlink:href="./img/bg_delete.svg#bg_delete"></use></svg><span></span></button>
+			<p class="ja">背景色を削除します。</p>
+			<p class="en">Delete background color.</p>
+		</li>
+		<li>
+			<label><input id="base_img" type="file" name="base" accept="image/png, image/gif, image/jpeg">
+			<svg style="width:26px;height:26px"><use xlink:href="./img/capture_.svg#capture"></use></svg>
+			<p class="ja">背景画像を指定できます。</p>
+			<p class="en">Specify background image File.</p>
+		</li>
+		<li>
+			<button data-btn="base_remove">
+			<svg style="width:26px;height:26px"><use xlink:href="./img/img_remove.svg#img_remove"></use></svg>
+			<p class="ja">背景画像の削除します。</p>
+			<p class="en">Delete background image</p>
+		</li>
+		<li>
+			<label class="switch"><input type="checkbox" id="base_on">
+			<svg style="width:26px;height:26px"><use xlink:href="./img/eye.svg#eye"></use></svg><span></span></label>
+			<p class="ja">背景画像の表示・非表示を切り替えます。</p>
+			<p class="en">Show/hide background image</p>
+		</li>
+		<li>
+			<button data-btn="base_up"><svg style="width:26px;height:26px"><use xlink:href="./img/up.svg#up"></use></svg><span></span></button>
+			<p class="ja">背景画像を上に移動します。(Alt+↑キーで移動幅が大きくなります)</p>
+			<p class="en">Move background image up. (Alt+Up keys increases the movement width)</p>
+		</li>
+		<li>
+			<button data-btn="base_down"><svg style="width:26px;height:26px"><use xlink:href="./img/down.svg#down"></use></svg><span></span></button>
+			<p class="ja">背景画像を下に移動します。(Alt+↓キーで移動幅が大きくなります)</p>
+			<p class="en">Move the background image down. (Alt+Down keys to increase the movement width)</p>
+		</li>
+		<li>
+			<button data-btn="base_left"><svg style="width:26px;height:26px"><use xlink:href="./img/left.svg#left"></use></svg><span></span></button>
+			<p class="ja">背景画像を左に移動します。(Alt+←キーで移動幅が大きくなります)</p>
+			<p class="en">Move background image to the left.(Alt+Left keys to increase the movement width)</p>
+		</li>
+		<li>
+			<button data-btn="base_right"><svg style="width:26px;height:26px"><use xlink:href="./img/right.svg#right"></use></svg><span></span></button>
+			<p class="ja">背景画像を右に移動します。(Alt+→キーで移動幅が大きくなります)</p>
+			<p class="en">Move background image to the right (Alt+Right keys to increase the movement width)</p>
+		</li>
+		<li>
+			<button data-btn="size_up"><svg style="width:26px;height:26px"><use xlink:href="./img/sizeup.svg#sizeup"></use></svg><span></span></button>
+			<p class="ja">背景画像を拡大します。(Alt+マウススクロールで拡大幅が大きくなります)</p>
+			<p class="en">Zoom in background image (Alt+mouse scroll buttons to increase magnification)</p>
+		</li>
+		<li class="split_bottom_line">
+			<button data-btn="size_down"><svg style="width:26px;height:26px"><use xlink:href="./img/sizedown.svg#sizedown"></use></svg><span></span></button>
+			<p class="ja">背景画像を縮小します。(Alt+マウススクロールで縮小幅が大きくなります)</p>
+			<p class="en">Zoom out background image (Alt+mouse scroll buttons to increase reduction width)</p>
+		</li>
+		<li>
+			<button data-btn="delete"><svg style="width:26px;height:26px"><use xlink:href="./img/delete.svg#delete"></use></svg><span></span></button>
+			<p class="ja">作成中のデータを削除します。</p>
+			<p class="en">Delete edited data</p>
+		</li>
+	</ul>
+</aside>
+<main>
+<div id="all">
+<nav id="header"></nav>
+<ul id="main" class="base"></ul>
+<ul id="history"></ul></div>
+<samp><div id="base"></div></samp>
+</main>
+<footer></footer>
+
+
+
+
+<dialog data-type="">
+<article id="tips">
+	<h1 class="en"><span>Iron Beads Editor</span><button data-btn="modal_close">+</button></h1>
+	<h1 class="ja"><span>Iron Beads Editor -アイロンビーズエディタ-</span><button data-btn="modal_close">+</button></h1>
+	<p class="ja">
+		Iron Beads Editor(IBE)はあくまで「アイロンビーズ」のデータを作る用のエディタとして開発しました。<br>
+		ドット絵を描く用には適していません。
+	</p>
+	<p class="en">
+	Iron Beads Editor(IBE) was developed solely as an editor for creating "Iron beads" data.<br>
+	It is NOT suitable for drawing dot pictures.
+	</p>
+	<h2 class="ja">ショートカットキー</h2>
+	<h2 class="en">Short Cut Keys</h2>
+	<ul>
+		<li class="ja"><b>1キー</b>ドット打ちモード</li>
+		<li class="ja"><b>2キー</b>線画モード</li>
+		<li class="ja"><b>3キー</b>塗りつぶしモード</li>
+		<li class="ja"><b>4キー</b>消しゴムモード</li>
+		<li class="ja"><b>Alt + 既存の部分をクリック</b>スポイト機能</li>
+		<li class="ja"><b>Rキー</b>左右反転</li>
+		<li class="ja"><b>Bキー</b>ミラー機能</li>
+		<li class="ja"><b>Shift + スクロール</b>拡大/縮小(左側のボタンより大きく拡大縮小します)</li>
+		<li class="ja"><b>Alt + スクロール</b>下絵の拡大/縮小(左側のボタンより大きく拡大縮小します)</li>
+		<li class="ja"><b>Alt + 矢印キー</b>下絵の移動(左側のボタンより大きく移動します)</li>
+		<li class="ja"><b>Ctrl(Command) + Zキー</b>Undo(前の動作に戻る</li>
+		<li class="ja"><b>Ctrl(Command)+shift + Zキー</b>Redo(次の動作に戻る)</li>
+		<li class="en"><b>1</b>A Dot</li>
+		<li class="en"><b>2</b>Straight line</li>
+		<li class="en"><b>3</b>Fill</li>
+		<li class="en"><b>4</b>Eraser</li>
+		<li class="en"><b>Alt + Click</b>Dropper</li>
+		<li class="en"><b>R</b>Reverses the edited data left and right. </li>
+		<li class="en"><b>B</b>Mirror Mode(Fills in symmetrical areas.)</li>
+		<li class="en"><b>Shift + Mouse scroll Button</b>Zoom-In(out) dots width.</li>
+		<li class="en"><b>Alt + Mouse scroll Button</b>Zoom-In(out) background image.</li>
+		<li class="en"><b>Alt + Arrow keys</b>Move background image.</li>
+		<li class="en"><b>Ctrl(Command) + Z</b>Undo</li>
+		<li class="en"><b>Ctrl(Command)+shift + Z</b>Redo</li>
+	</ul>
+	<h2 class="ja" style="margin-bottom:0">免責事項</h2>
+	<h2 class="en" style="margin-bottom:0">Disclaimer</h2>
+	<p style="padding-top:0;margin-top:0;" class="ja">ツールを使用中に、データが壊れたなど責任は負いかねます。<br>
+		このツールで作ったものは著作権などのモラルを守って使用してください。<br>
+		尚、このツールは使用者のデータを一切サーバーに送信していません、アクセス解析もしていませんので安心してお使いください。<br><br>
+		これらを厳守することを元に使用してください。
+	</p>
+	<p style="padding-top:0;margin-top:0;" class="en">During the use of this tool, I cannot be held responsible for any data corruption or other issues. Please use the tool in compliance with moral standards such as copyright. Furthermore, this tool does not send any user data to servers, so please feel free to use it with peace of mind. Please use it with peace of mind, based on adherence to these guidelines.</p>
+	<p id="credit">development by kurokky. &copy;<span id="current-year"></span></p>
+</article>
+<section id="normal_dialog">
+	<article>
+		<h1 id="modal_head">Iron Beads Editor</h1>
+		<button data-btn="modal_close">+</button>
+	</article>
+	<p id="notice"></p>
+	<ul id="candidates">
+		<li><button data-btn="cancel">Cancel</button></li>
+		<li><button data-btn="ok">OK</button></li>
+	</ul>
+</section>
+</dialog>
+<style id="palettes"></style>
+<script type="text/javascript" src="./js/main.js"></script>
+<script>
+const language = window.navigator.language
+let dom
+if (language == "ja"){
+	dom = document.getElementsByClassName("en")
+}else{
+	dom = document.getElementsByClassName("ja")
+}
+[].forEach.call(dom, (e) => {
+    e.style.display = 'none'
+})
+
+const optiontags =
+{
+	"上":"Up",
+	"下":"Down",
+	"左":"Left",
+	"右":"Right",
+	"追加":"Add",
+	"削除":"Remove"
+}
+
+if (language == "en"){
+	document.querySelectorAll("option").forEach((elm) =>{
+		const base = elm.innerText
+		elm.innerText = optiontags[base]
+	})
+}
+</script>
+</body>
+</html>

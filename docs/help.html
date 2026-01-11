@@ -1,0 +1,72 @@
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iron Beads Editor</title>
+<link rel="stylesheet" type="text/css" href="./css/help.css" />
+<link rel="icon" href="./fav.svg" type="image/svg+xml">
+</head>
+<body>
+<h1 class="en">Iron Beads Editor Help</h1>
+<h1 class="ja">アイロンビーズエディタ Help</h1>
+  <p class="ja">
+    Iron Beads Editor(IBE)はあくまで「アイロンビーズ」のデータを作る用のエディタとして開発しました。<br>
+    ドット絵を描く用には適していません。
+  </p>
+  <p class="en">
+  Iron Beads Editor(IBE) was developed solely as an editor for creating "Iron beads" data.<br>
+  It is NOT suitable for drawing dot pictures.
+  </p>
+  <h2 class="ja">ショートカットキー</h2>
+  <h2 class="en">Short Cut Keys</h2>
+  <ul>
+    <li class="ja"><b>1キー</b>ドット打ちモード</li>
+    <li class="ja"><b>2キー</b>線画モード</li>
+    <li class="ja"><b>3キー</b>塗りつぶしモード</li>
+    <li class="ja"><b>4キー</b>消しゴムモード</li>
+    <li class="ja"><b>Alt + 既存の部分をクリック</b>スポイト機能</li>
+    <li class="ja"><b>Rキー</b>左右反転</li>
+    <li class="ja"><b>Bキー</b>ミラー機能</li>
+    <li class="ja"><b>Shift + スクロール</b>拡大/縮小(左側のボタンより大きく拡大縮小します)</li>
+    <li class="ja"><b>Alt + スクロール</b>下絵の拡大/縮小(左側のボタンより大きく拡大縮小します)</li>
+    <li class="ja"><b>Alt + 矢印キー</b>下絵の移動(左側のボタンより大きく移動します)</li>
+    <li class="ja"><b>Ctrl(Command) + Zキー</b>Undo(前の動作に戻る</li>
+    <li class="ja"><b>Ctrl(Command)+shift + Zキー</b>Redo(次の動作に戻る)</li>
+    <li class="en"><b>1</b>A Dot</li>
+    <li class="en"><b>2</b>Straight line</li>
+    <li class="en"><b>3</b>Fill</li>
+    <li class="en"><b>4</b>Eraser</li>
+    <li class="en"><b>Alt + Click</b>Dropper</li>
+    <li class="en"><b>R</b>Reverses the edited data left and right. </li>
+    <li class="en"><b>B</b>Mirror Mode(Fills in symmetrical areas.)</li>
+    <li class="en"><b>Shift + Mouse scroll Button</b>Zoom-In(out) dots width.</li>
+    <li class="en"><b>Alt + Mouse scroll Button</b>Zoom-In(out) background image.</li>
+    <li class="en"><b>Alt + Arrow keys</b>Move background image.</li>
+    <li class="en"><b>Ctrl(Command) + Z</b>Undo</li>
+    <li class="en"><b>Ctrl(Command)+shift + Z</b>Redo</li>
+  </ul>
+<h2 class="ja" style="margin-bottom:0">免責事項</h2>
+ <h2 class="en" style="margin-bottom:0">Disclaimer</h2>
+<p class="ja">ツールを使用中に、データが壊れたなど責任は負いかねます。<br>
+    このツールで作ったものは著作権などのモラルを守って使用してください。<br>
+    尚、このツールは使用者のデータを一切サーバーに送信していません、アクセス解析もしていませんので安心してお使いください。<br><br>
+    使用の際はこれらを厳守する前提とさせていただきます。
+  </p>
+<p class="en">During the use of this tool, I cannot be held responsible for any data corruption or other issues. Please use the tool in compliance with moral standards such as copyright. Furthermore, this tool does not send any user data to servers, so please feel free to use it with peace of mind. Please use it with peace of mind, based on adherence to these guidelines.</p>
+
+<footer>development by kurokky. &copy;<span id="current-year"></span></footer>
+<script>
+document.getElementById("current-year").innerText = new Date().getFullYear()
+const language = window.navigator.language
+let dom
+if (language == "ja"){
+  dom = document.getElementsByClassName("en")
+}else{
+  dom = document.getElementsByClassName("ja")
+}
+[].forEach.call(dom, (e) => {
+    e.style.display = 'none'
+})
+</script>
+</body>
+</html>

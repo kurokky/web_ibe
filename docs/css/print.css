@@ -1,0 +1,39 @@
+:root{
+	--beads-size:7.2mm;
+	--beads-fsize:3.5mm;
+}
+
+@page {
+	margin: 0mm 5mm;
+	size: A4 portrait;
+}
+
+body{
+	margin:0;
+	width: 297mm;
+}
+
+header, footer, aside{
+	display:none;
+}
+
+
+#header div{
+	font-size:var(--beads-fsize);
+	width: var(--beads-size);
+}
+
+#main div{
+		width: var(--beads-size);
+		height: var(--beads-size);
+		line-height: var(--beads-size);
+}
+
+#main div:first-child {
+	width: var(--beads-size);
+}
+
+#main 	> li::before {
+		line-height: var(--beads-size);
+		height: var(--beads-size);
+}

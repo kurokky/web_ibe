@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   sodipodi:docname="zoom_in_.svg"
+   inkscape:version="1.0 (4035a4f, 2020-05-01)"
+   id="zoom_in"
+   version="1.1"
+   viewBox="0 0 31.749999 31.750001"
+   height="26"
+   width="26">
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="レイヤー 1">
+    <g
+       transform="translate(68.207443,43.278336)"
+       id="g2766">
+      <rect
+         style="fill:none;stroke:none;stroke-width:0.532206;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2731"
+         width="31.75"
+         height="31.75"
+         x="-68.207443"
+         y="-43.278336"
+         ry="0.08534947" />
+      <g
+         id="g878"
+         transform="matrix(0.93580766,0,0,0.93580766,-1.0366281,-44.245264)">
+        <path
+           id="path865"
+           style="fill:currentColor;stroke-width:2.1887;stroke-linecap:round;stroke-linejoin:round"
+           d="m -63.168589,7.1629405 a 10.522453,10.522453 0 0 0 -1.339407,14.8205645 10.522453,10.522453 0 0 0 12.923016,2.601603 l 4.899003,5.872473 c 0.804033,0.963801 2.227301,1.092429 3.191102,0.288396 0.9638,-0.804032 1.092429,-2.227301 0.288396,-3.191103 l -4.899003,-5.872473 A 10.522453,10.522453 0 0 0 -48.348024,8.5023473 10.522453,10.522453 0 0 0 -63.168589,7.1629405 Z m 1.272897,1.5608654 a 8.5085858,8.5085858 0 0 1 0.01724,-0.014376 8.5085858,8.5085858 0 0 1 11.983945,1.0830474 8.5085858,8.5085858 0 0 1 -1.083047,11.9839437 8.5085858,8.5085858 0 0 1 -11.984358,-1.082703 8.5085858,8.5085858 0 0 1 1.066226,-11.9699117 z" />
+        <rect
+           style="fill:currentColor;stroke-width:2.22049;stroke-linecap:round;stroke-linejoin:round"
+           id="rect867"
+           width="10.663175"
+           height="1.5577118"
+           x="-61.807926"
+           y="14.662016"
+           ry="0.77885592" />
+        <rect
+           transform="rotate(90)"
+           ry="0.77885592"
+           y="55.697483"
+           x="10.109284"
+           height="1.5577118"
+           width="10.663175"
+           id="rect873"
+           style="fill:currentColor;stroke-width:2.22049;stroke-linecap:round;stroke-linejoin:round" />
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="./ibe.svg" type="image/svg+xml">
+    <meta property="og:title" content="Iron Beads Editor -アイロンビーズエディタ-" />
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://kurokky.github.io/web_ibe/" />
+    <meta property="og:image" content="https://kurokky.github.io/web_ibe/ibe_ogp.png" />
+    <meta property="og:site_name" content="Iron Beads Editor -アイロンビーズエディタ-" />
+    <meta property="og:description" content="App Of the iron beads creator, By the beads creator, For the beads creator." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:description" content="App Of the iron beads creator, By the beads creator, For the beads creator." />
+    <meta name="twitter:title" content="Iron Beads Editor -アイロンビーズエディタ-" />
+    <meta name="twitter:site" content="@black_tree" />
+    <meta name="twitter:image" content="https://kurokky.github.io/web_ibe/ibe_ogp.png" />
+    <meta name="twitter:creator" content="@black_tree" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page_title">Iron Beads Editor - 作る楽しさ、無限大！</title>
+    <style>
+        /* --- 変数定義 --- */
+        :root {
+            --c-draw: #FF4F91;
+            --c-edit: #3FB6F6;
+            --c-power: #FFCB00;
+            --c-file: #52D76A;
+            --c-exp: #A575FF;
+            
+            --bg-body-base: #F2F4F8;
+            --bg-card: #FFFFFF;
+            --text-main: #4A3A3A;
+            --text-muted: #8C7E7E;
+            --border-radius: 32px;
+            --font-family: "Hiragino Maru Gothic ProN", "Rounded Mplus 1c", -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-body-base: #1C1C1E;
+                --bg-card: #2C2C2E;
+                --text-main: #F3F4F6;
+                --text-muted: #BDB2B2;
+            }
+        }
+
+        /* --- リセット & 基本 --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: var(--font-family);
+            color: var(--text-main);
+            line-height: 1.6;
+            background-color: var(--bg-body-base);
+            background-image: radial-gradient(rgba(0,0,0,0.05) 2px, transparent 2px);
+            background-size: 20px 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+        @media (prefers-color-scheme: dark) {
+            body { background-image: radial-gradient(rgba(255,255,255,0.1) 2px, transparent 2px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- ヘッダーレイアウト --- */
+        header {
+            padding: 60px 0 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .app-icon-wrapper {
+            position: relative;
+            flex: 0 0 140px;
+            height: 140px;
+            animation: jump-spin 3s infinite ease-in-out;
+            will-change: transform;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));
+            z-index: 10;
+        }
+        @keyframes jump-spin {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(-5deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(-8px) rotate(5deg); }
+        }
+
+        /* タイトルエリア */
+        .title-area {
+            text-align: center;
+            margin-top: 20px;
+        }
+        h1 {
+            font-size: 2.8rem; margin-bottom: 12px; font-weight: 900; letter-spacing: 1px;
+            color: var(--text-main); text-shadow: 2px 2px 0px var(--bg-body-base), 3px 3px 0px rgba(0,0,0,0.1);
+        }
+        .subtitle {
+            font-size: 1.15rem; color: var(--text-muted); margin-bottom: 36px; font-weight: bold;
+        }
+        .btn-dl {
+            background-color: var(--c-draw); color: white; padding: 16px 48px; border-radius: 60px;
+            text-decoration: none; font-weight: 900; font-size: 1.25rem; display: inline-block;
+            box-shadow: 0 6px 20px rgba(255, 79, 145, 0.4); border: 3px solid white;
+            transition: transform 0.2s, box-shadow 0.2s; animation: pulse-btn 2s infinite;
+        }
+        .btn-dl:hover {
+            transform: scale(1.05) translateY(-3px); box-shadow: 0 8px 25px rgba(255, 79, 145, 0.5); animation: none;
+        }
+        @keyframes pulse-btn {
+            0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); }
+        }
+
+        /* Web版リンクのスタイル (追加) */
+        .web-version-link {
+            margin-top: 24px;
+        }
+        .web-version-link a {
+            color: var(--text-muted);
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1rem;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .web-version-link a:hover {
+            color: var(--c-draw);
+            border-bottom: 2px solid var(--c-draw);
+            transform: translateY(-2px);
+        }
+
+
+        /* --- 漫画吹き出し (Side Bubbles) --- */
+        .bubbles-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 350px;
+        }
+        .bubbles-left { align-items: flex-end; }
+        .bubbles-right { align-items: flex-start; }
+
+        .bubble {
+            background: #FFFFFF;
+            border: 3px solid #000000;
+            color: #000000;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-weight: 900;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            position: relative;
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .bubble::after, .bubble::before {
+            content: ''; position: absolute; border-style: solid; display: block; width: 0; z-index: 1;
+        }
+        .bubble::before { z-index: 2; }
+
+        /* Left Bubbles */
+        .bubbles-left .bubble { margin-right: 25px; transform-origin: center right; }
+        .bubbles-left .bubble.init-pos { transform: translateX(50px) scale(0.5); opacity: 0; }
+        .bubbles-left .bubble.is-visible { transform: translateX(0) scale(1) rotate(-2deg); opacity: 1; }
+        .bubbles-left .bubble::after { top: 50%; right: -23px; margin-top: -10px; border-width: 10px 0 10px 20px; border-color: transparent transparent transparent #000; }
+        .bubbles-left .bubble::before { top: 50%; right: -12px; margin-top: -7px; border-width: 7px 0 7px 14px; border-color: transparent transparent transparent #fff; }
+
+        /* Right Bubbles */
+        .bubbles-right .bubble { margin-left: 25px; transform-origin: center left; }
+        .bubbles-right .bubble.init-pos { transform: translateX(-50px) scale(0.5); opacity: 0; }
+        .bubbles-right .bubble.is-visible { transform: translateX(0) scale(1) rotate(2deg); opacity: 1; }
+        .bubbles-right .bubble::after { top: 50%; left: -23px; margin-top: -10px; border-width: 10px 20px 10px 0; border-color: transparent #000 transparent transparent; }
+        .bubbles-right .bubble::before { top: 50%; left: -12px; margin-top: -7px; border-width: 7px 14px 7px 0; border-color: transparent #fff transparent transparent; z-index: 2; }
+
+        /* Delays */
+        .bubbles-left .bubble:nth-child(1) { transition-delay: 0.1s; }
+        .bubbles-left .bubble:nth-child(2) { transition-delay: 0.2s; }
+        .bubbles-left .bubble:nth-child(3) { transition-delay: 0.3s; }
+        .bubbles-left .bubble:nth-child(4) { transition-delay: 0.4s; }
+        .bubbles-right .bubble:nth-child(1) { transition-delay: 0.15s; }
+        .bubbles-right .bubble:nth-child(2) { transition-delay: 0.25s; }
+        .bubbles-right .bubble:nth-child(3) { transition-delay: 0.35s; }
+        .bubbles-right .bubble:nth-child(4) { transition-delay: 0.45s; }
+
+        @media (max-width: 850px) {
+            .hero-area { flex-direction: column; gap: 20px; }
+            .app-icon-wrapper { order: 1; margin-bottom: 20px; }
+            .bubbles-column { order: 2; max-width: 100%; width: 90%; }
+            .bubbles-left, .bubbles-right { align-items: center; }
+            .bubble { margin: 0 0 20px 0 !important; transform-origin: center bottom; }
+            .bubble::after { top: auto; bottom: -23px; left: 50%; margin-left: -10px; margin-top: 0; border-width: 20px 10px 0 10px; border-color: #000 transparent transparent transparent; }
+            .bubble::before { top: auto; bottom: -16px; left: 50%; margin-left: -7px; margin-top: 0; border-width: 14px 7px 0 7px; border-color: #fff transparent transparent transparent; }
+        }
+
+        /* --- Cards --- */
+        .features-wrapper { display: flex; flex-direction: column; gap: 50px; padding-bottom: 80px; perspective: 1000px; }
+        .feature-card {
+            background: var(--bg-card); border-radius: var(--border-radius); padding: 40px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.06); border: 4px solid transparent;
+            position: relative; overflow: hidden; opacity: 0; transform: translateY(60px) scale(0.95);
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.85);
+        }
+        @media (prefers-color-scheme: dark) { .feature-card { background: rgba(44, 44, 46, 0.85); } }
+
+        .card-icon, .card-title, .card-desc, .tag { opacity: 0; transform: translateY(20px); transition: all 0.5s ease-out; }
+        .feature-card.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+        .feature-card.is-visible:nth-child(odd) { animation: float-odd 4s ease-in-out infinite; animation-delay: 0.8s; }
+        .feature-card.is-visible:nth-child(even) { animation: float-even 5s ease-in-out infinite; animation-delay: 0.8s; }
+        .feature-card.is-visible .card-icon, .feature-card.is-visible .card-title { animation: slide-up-fade 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; animation-delay: 0.2s; }
+        .feature-card.is-visible .card-desc { animation: slide-up-fade 0.6s ease forwards; animation-delay: 0.3s; }
+        .feature-card.is-visible .tag { animation: tag-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .feature-card.is-visible .tag:nth-child(1) { animation-delay: 0.4s; }
+        
+        @keyframes float-odd { 0%, 100% { transform: rotate(-1.5deg) translateY(0); } 50% { transform: rotate(-1.5deg) translateY(-10px); } }
+        @keyframes float-even { 0%, 100% { transform: rotate(1.5deg) translateY(0); } 50% { transform: rotate(1.5deg) translateY(-10px); } }
+        @keyframes slide-up-fade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes tag-pop { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+        .feature-card:hover { animation-play-state: paused; transform: scale(1.02) rotate(0deg) !important; box-shadow: 0 20px 50px rgba(0,0,0,0.12); z-index: 10; }
+        
+        @media (min-width: 768px) {
+            .feature-card-inner { display: flex; align-items: flex-start; justify-content: space-between; gap: 30px; }
+            .card-header-area { flex: 0 0 280px; text-align: left; }
+            .card-tags-area { flex: 1; }
+            .card-header { justify-content: flex-start; }
+        }
+        .card-draw { border-color: var(--c-draw); } .card-edit { border-color: var(--c-edit); } .card-power { border-color: var(--c-power); } .card-file { border-color: var(--c-file); } .card-exp  { border-color: var(--c-exp); background: linear-gradient(135deg, rgba(165, 117, 255, 0.05) 0%, rgba(165, 117, 255, 0.15) 100%); }
+        .card-header { display: flex; align-items: center; margin-bottom: 20px; }
+        .card-icon { font-size: 2.5rem; margin-right: 16px; background: rgba(0,0,0,0.06); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.05); flex-shrink: 0; }
+        .card-title { font-size: 1.8rem; font-weight: 900; line-height: 1.3; }
+        .card-desc { margin-bottom: 24px; color: var(--text-muted); font-size: 1rem; font-weight: bold; }
+        .tag-container { display: flex; flex-wrap: wrap; gap: 12px; }
+        .tag { padding: 10px 20px; border-radius: 30px; font-size: 1rem; font-weight: 800; cursor: default; transition: transform 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 2px solid transparent; }
+        .tag:hover { transform: scale(1.15) rotate(3deg); }
+        .card-draw .tag { background: rgba(255, 79, 145, 0.15); color: var(--c-draw); } .card-edit .tag { background: rgba(63, 182, 246, 0.15); color: var(--c-edit); } .card-power .tag { background: rgba(255, 203, 0, 0.2); color: #E6B800; } .card-file .tag { background: rgba(82, 215, 106, 0.15); color: var(--c-file); } .card-exp .tag  { background: #FFFFFF; color: var(--c-exp); border-color: var(--c-exp); } .tag.special { background: transparent !important; border-width: 3px; }
+        @media (prefers-color-scheme: dark) { .card-power .tag { color: #FFCB00; } .card-exp .tag { background: #3A313C; } }
+        footer { text-align: center; padding: 60px 20px; font-size: 0.9rem; color: var(--text-muted); font-weight: bold; background: rgba(255,255,255,0.5); border-radius: 32px 32px 0 0; position: relative; z-index: 2; }
+        @media (prefers-color-scheme: dark) { footer { background: rgba(0,0,0,0.2); } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="hero-area">
+                
+                <div class="bubbles-column bubbles-left">
+                    <div class="bubble init-pos" data-i18n="bubble_l1">表計算ソフトで作るのは面倒だ…</div>
+                    <div class="bubble init-pos" data-i18n="bubble_l2">左右対称のものをイチイチ作りたくない…</div>
+                    <div class="bubble init-pos" data-i18n="bubble_l3">ナノビーズのような小さい図案でも印刷したい！</div>
+                    <div class="bubble init-pos" data-i18n="bubble_l4">ドット絵ツールのようなレイヤー機能はいらない！</div>
+                </div>
+
+                <div class="app-icon-wrapper">
+                    <img src="./ibe.svg" width="120" height="120" alt="App Icon">
+                </div>
+
+                <div class="bubbles-column bubbles-right">
+                    <div class="bubble init-pos" data-i18n="bubble_r1">ビーズ数を自動で計算してほしい！</div>
+                    <div class="bubble init-pos" data-i18n="bubble_r2">行や列が多すぎるのを簡単に減らしたい！</div>
+                    <div class="bubble init-pos" data-i18n="bubble_r3">簡単に2倍サイズにしたい！</div>
+                    <div class="bubble init-pos" data-i18n="bubble_r4">下絵を拡大・縮小してトレースしたい！</div>
+                </div>
+
+            </div>
+
+            <div class="title-area">
+                <h1>Iron Beads Editor</h1>
+                <p class="subtitle" data-i18n="subtitle">アイロンビーズ作家によるアイロンビーズ作家のためのツール</p>
+                <a href="./Iron_Beads_Editor_1.0.2_universal.dmg" class="btn-dl" data-i18n="btn_dl">Version 1.0.2をダウンロード (Mac)</a>
+                
+                <p class="web-version-link">
+                    <a href=",/web.html" target="_blank" data-i18n="link_web">Web用簡易版はこちら →</a>
+                </p>
+            </div>
+        </div>
+    </header>
+
+   <div class="container">
+        <div class="features-wrapper">
+
+            <div class="feature-card card-draw">
+                <div class="feature-card-inner">
+                    <div class="card-header-area">
+                        <div class="card-header">
+                            <div class="card-icon" style="color: var(--c-draw);">✏️</div>
+                            <div class="card-title" data-i18n="card_draw_title">ポチポチする<br>楽しさ！</div>
+                        </div>
+                    </div>
+                    <div class="card-tags-area">
+                        <div class="tag-container">
+                            <span class="tag" data-i18n="tag_pen">Penモード</span>
+                            <span class="tag" data-i18n="tag_eraser">消しゴム</span>
+                            <span class="tag" data-i18n="tag_fill">塗りつぶし</span>
+                            <span class="tag" data-i18n="tag_line">直線ツール</span>
+                            <span class="tag" data-i18n="tag_wand">魔法の杖 (Magic Wand)</span>
+                            <span class="tag" data-i18n="tag_mirror">ミラーモード</span>
+                            <span class="tag" data-i18n="tag_calc">ビーズ数自動計算</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card card-edit">
+                <div class="feature-card-inner">
+                    <div class="card-header-area">
+                        <div class="card-header">
+                            <div class="card-icon" style="color: var(--c-edit);">📐</div>
+                            <div class="card-title" data-i18n="card_edit_title">便利機能</div>
+                        </div>
+                    </div>
+                    <div class="card-tags-area">
+                        <div class="tag-container">
+                            <span class="tag" data-i18n="tag_scale">2倍！3倍！界○拳！</span>
+                            <span class="tag" data-i18n="tag_rotate">90度、180度、270度回転</span>
+                            <span class="tag" data-i18n="tag_flip">左右反転</span>
+                            <span class="tag" data-i18n="tag_replace">色をまとめて置換</span>
+                            <span class="tag" data-i18n="tag_nano">ナノビーズ対応印刷</span>
+                            <span class="tag" data-i18n="tag_export">PNG/PDF保存</span>
+                            <span class="tag" data-i18n="tag_palette">メーカー別パレット</span>
+                            <span class="tag" data-i18n="tag_trace_load">下絵の読み込み</span>
+                            <span class="tag" data-i18n="tag_trace_resize">下絵の拡大縮小</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card card-power">
+                <div class="feature-card-inner">
+                    <div class="card-header-area">
+                        <div class="card-header">
+                            <div class="card-icon" style="color: #FFCB00;">⚡</div>
+                            <div class="card-title" data-i18n="card_power_title">無駄な<br>機能も！</div>
+                        </div>
+                    </div>
+                    <div class="card-tags-area">
+                        <div class="tag-container">
+                            <span class="tag" data-i18n="tag_vim">Vimモード搭載</span>
+                            <span class="tag" data-i18n="tag_grid">行列の追加・削除</span>
+                            <span class="tag" data-i18n="tag_shortcut">ショートカットキー対応</span>
+                            <span class="tag" data-i18n="tag_bg">背景色の変更</span>
+                            <span class="tag" data-i18n="tag_dark">ダークモード対応</span>
+                            <span class="tag" data-i18n="tag_guide">罫線/行番号の表示・非表示</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card card-exp">
+                <div class="feature-card-inner">
+                    <div class="card-header-area">
+                        <div class="card-header">
+                            <div class="card-icon" style="color: var(--c-exp);">🧵</div>
+                            <div class="card-title" data-i18n="card_exp_title">ママも嬉しい！<br>刺繍とつながる</div>
+                        </div>
+                        <p class="card-desc" data-i18n="card_exp_desc">
+                            Inkscape連携で、作ったドット絵が本物のクロスステッチ刺繍の図案になっちゃう！
+                        </p>
+                    </div>
+                    <div class="card-tags-area">
+                        <div class="tag-container">
+                            <span class="tag" data-i18n="tag_ink_link">Inkscape連携</span>
+                            <span class="tag special">Ink/Pixel Import</span>
+                            <span class="tag">Ink/Stitch連携</span>
+                            <span class="tag" data-i18n="tag_cross">クロスステッチ作成</span>
+                            <span class="tag" data-i18n="tag_embroidery">刺繍図案へ変換</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        Iron Beads Editor v1.0.0<br>
+        development by kurokky. &copy; 2023-<span id="this_year"></span> All rights reserved.
+    </footer>
+
+    <script>
+        const translations = {
+            ja: {
+                page_title: "Iron Beads Editor - 作る楽しさ、無限大！",
+                bubble_l1: "表計算ソフトで作るのは面倒だ…",
+                bubble_l2: "左右対称のものをイチイチ作りたくない…",
+                bubble_l3: "ナノビーズのような小さい図案でも印刷したい！",
+                bubble_l4: "ドット絵ツールのようなレイヤー機能はいらない！",
+                bubble_r1: "ビーズ数を自動で計算してほしい！",
+                bubble_r2: "行や列が多すぎるのを簡単に減らしたい！",
+                bubble_r3: "簡単に2倍サイズにしたい！",
+                bubble_r4: "下絵を拡大・縮小してトレースしたい！",
+                subtitle: "アイロンビーズ作家によるアイロンビーズ作家のためのツール",
+                btn_dl: "無料でダウンロード (Mac)",
+                link_web: "Web版はこちら →",
+                card_draw_title: "ポチポチする<br>楽しさ！",
+                tag_pen: "Penモード",
+                tag_eraser: "消しゴム",
+                tag_fill: "塗りつぶし",
+                tag_line: "直線ツール",
+                tag_wand: "魔法の杖 (Magic Wand)",
+                tag_mirror: "ミラーモード",
+                tag_calc: "ビーズ数自動計算",
+                card_edit_title: "便利機能",
+                tag_scale: "2倍！3倍！界○拳！",
+                tag_rotate: "90度、180度、270度回転",
+                tag_flip: "左右反転",
+                tag_replace: "色をまとめて置換",
+                tag_nano: "ナノビーズ対応印刷",
+                tag_export: "PNG/PDF保存",
+                tag_palette: "メーカー別パレット",
+                tag_trace_load: "下絵の読み込み",
+                tag_trace_resize: "下絵の拡大縮小",
+                card_power_title: "無駄な<br>機能も！",
+                tag_vim: "Vimモード搭載",
+                tag_grid: "行列の追加・削除",
+                tag_shortcut: "ショートカットキー対応",
+                tag_bg: "背景色の変更",
+                tag_dark: "ダークモード対応",
+                tag_guide: "罫線/行番号の表示・非表示",
+                card_exp_title: "ママも嬉しい！<br>刺繍とつながる",
+                card_exp_desc: "Inkscape連携で、作ったドット絵が本物のクロスステッチ刺繍の図案になっちゃう！",
+                tag_ink_link: "Inkscape連携",
+                tag_cross: "クロスステッチ作成",
+                tag_embroidery: "刺繍図案へ変換"
+            },
+            en: {
+                page_title: "Iron Beads Editor - Infinite Fun of Creating!",
+                bubble_l1: "Spreadsheets are a pain to use...",
+                bubble_l2: "I don't want to make symmetrical parts manually...",
+                bubble_l3: "I want to print patterns for small beads too!",
+                bubble_l4: "I don't need complex layers like in photo editors!",
+                bubble_r1: "Auto-calculate bead counts for me!",
+                bubble_r2: "Easily trim excess rows and columns!",
+                bubble_r3: "Double the size instantly!",
+                bubble_r4: "Import and resize images for tracing!",
+                subtitle: "A tool for Iron Beads Artists, by an Iron Beads Artist.",
+                btn_dl: "Version 1.0.0 Free Download (Mac)",
+                link_web: "Try Web Lite Version →",
+                card_draw_title: "The Joy of<br>Pixel Art!",
+                tag_pen: "Pen Mode",
+                tag_eraser: "Eraser",
+                tag_fill: "Fill Tool",
+                tag_line: "Line Tool",
+                tag_wand: "Magic Wand",
+                tag_mirror: "Mirror Mode",
+                tag_calc: "Auto Bead Count",
+                card_edit_title: "Useful Features",
+                tag_scale: "Scale x2! x3! Boost!",
+                tag_rotate: "Rotate 90°/180°/270°",
+                tag_flip: "Flip Horizontally",
+                tag_replace: "Replace Colors",
+                tag_nano: "Nano-beads Printing",
+                tag_export: "Export PNG/PDF",
+                tag_palette: "Brand Palettes",
+                tag_trace_load: "Load Trace Image",
+                tag_trace_resize: "Resize Trace Image",
+                card_power_title: "Geeky<br>Features!",
+                tag_vim: "Vim Mode Enabled",
+                tag_grid: "Add/Remove Grid",
+                tag_shortcut: "Keyboard Shortcuts",
+                tag_bg: "Change Background",
+                tag_dark: "Dark Mode Support",
+                tag_guide: "Toggle Guides/Numbers",
+                card_exp_title: "Happy Mom!<br>Connect w/ Embroidery",
+                card_exp_desc: "Link with Inkscape to turn your pixel art into real cross-stitch embroidery patterns!",
+                tag_ink_link: "Inkscape Link",
+                tag_cross: "Create Cross-Stitch",
+                tag_embroidery: "Convert to Embroidery"
+            }
+        };
+
+        (function applyLocalization() {
+            const language = (navigator.language || navigator.userLanguage).substring(0, 2);
+            const targetLang = (language === 'ja') ? 'ja' : 'en';
+
+            if (targetLang === 'ja') return;
+
+            document.documentElement.lang = targetLang;
+            const res = translations[targetLang];
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (res[key]) {
+                    el.innerHTML = res[key];
+                }
+            });
+        })();
+
+        // Detect OS for Download Button
+        (function detectOS() {
+            const ua = navigator.userAgent.toLowerCase();
+            const isWindows = ua.indexOf('windows') > -1;
+            const btn = document.querySelector('.btn-dl');
+            if (!btn) return;
+            const isJa = (document.documentElement.lang === 'ja');
+
+            if (isWindows) {
+                // btn.href = './IronBeadsEditor-Setup.exe'; 
+                // btn.innerHTML = isJa ? '無料でダウンロード (Win)' : 'Free Download (Win)';
+            } else {
+                // btn.href = './IronBeadsEditor.dmg'; 
+            }
+        })();
+
+        // Animation Observers
+        const observerOptions = {
+            root: null, rootMargin: '0px', threshold: 0.15 
+        };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card').forEach(card => observer.observe(card));
+        document.querySelectorAll('.bubble').forEach(bubble => observer.observe(bubble));
+        document.getElementById('this_year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
