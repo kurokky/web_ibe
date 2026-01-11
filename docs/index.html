@@ -542,7 +542,9 @@
                 versionElements.forEach(element => {
                     element.textContent = data.version;
                 });
-                document.getElementById('mac_dl').textContent = `/Iron_Beads_Editor_${data.version}_universal.dmg`;
+                const mac_dl =  document.getElementById('mac_dl');
+                mac_dl.textContent = `Version ${data.version}`;
+                mac_dl.href = `./Iron_Beads_Editor_${data.version}_universal.dmg`;
             } catch (error) {
                 console.error('エラー:', error);
             }
