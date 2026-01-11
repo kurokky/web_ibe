@@ -283,7 +283,7 @@
             <div class="title-area">
                 <h1>Iron Beads Editor</h1>
                 <p class="subtitle" data-i18n="subtitle">アイロンビーズ作家によるアイロンビーズ作家のためのツール</p>
-                <a href="./Iron_Beads_Editor_1.0.2_universal.dmg" class="btn-dl" data-i18n="btn_dl">Version <span class="app_version">1.0.2</span>をダウンロード (Mac)</a>
+                <a href="./Iron_Beads_Editor_1.0.2_universal.dmg" class="btn-dl" data-i18n="btn_dl" id="mac_dl">Version <span class="app_version">1.0.2</span>をダウンロード (Mac)</a>
                 
                 <p class="web-version-link">
                     <a href="./web.html" target="_blank" data-i18n="link_web">Web用簡易版はこちら →</a>
@@ -542,7 +542,7 @@
                 versionElements.forEach(element => {
                     element.textContent = data.version;
                 });
-                document.getElementById('btn_dl').textContent = `/Iron_Beads_Editor_${data.version}_universal.dmg`;
+                document.getElementById('mac_dl').textContent = `/Iron_Beads_Editor_${data.version}_universal.dmg`;
             } catch (error) {
                 console.error('エラー:', error);
             }
