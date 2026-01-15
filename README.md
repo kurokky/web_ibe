@@ -1,9 +1,22 @@
 # IBE
 Iron Beads Editor
 
-- [for web](https://kurokky.github.io/web_ibe/)
+- [for web](https://kurokky.github.io/web_ibe/web.html)
+- [for mac](https://kurokky.github.io/web_ibe/)
 
 ## Bug Fixes
+
+### 1.1.1
+- [x] 印刷周りのバグ修正
+- [x] 一部残っていた多言語かを対応
+
+### 1.1.0
+
+- [x] 消しゴムの時ミラーモードがおかしくなる
+- [x] メニューを右側にもできるように
+- [x] カスタムパレット機能追加
+- [x] 背景画像の濃さ調整機能
+
 
 ### 1.0.3
 
