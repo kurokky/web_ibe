@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="robots" content="index, follow">
     <link rel="icon" href="./ibe.svg" type="image/svg+xml">
+    <meta name="keywords" content="アイロンビーズ,Iron Beads,ドット絵,Pixel">
     <meta property="og:title" content="Iron Beads Editor -アイロンビーズエディタ-" />
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://kurokky.github.io/web_ibe/" />
@@ -393,7 +394,18 @@
         development by kurokky. &copy; 2023-<span id="this_year"></span> All rights reserved.
     </footer>
 
-    <script>
+<script>
+const params = new URLSearchParams(window.location.search);
+const lang = params.get('lang') || 'ja';
+
+if (lang === 'en') {
+  document.documentElement.lang = "en";
+  document.title = "Iron Beads Editor - Infinite Fun of Creating!";
+  document.querySelector('meta[name="description"]').setAttribute("content", "An App Of an Iron Beads Artists, by an Iron Beads Artists, for an Iron Beads Artist.");
+}
+
+
+
         const translations = {
             ja: {
                 page_title: "Iron Beads Editor - 作る楽しさ、無限大！",
@@ -449,7 +461,7 @@
                 bubble_r2: "Easily trim excess rows and columns!",
                 bubble_r3: "Double the size instantly!",
                 bubble_r4: "Import and resize images for tracing!",
-                subtitle: "A tool for Iron Beads Artists, by an Iron Beads Artist.",
+                subtitle: "Aa App  Of an Iron Beads Artists, by an Iron Beads Artists, for an Iron Beads Artist.",
                 btn_dl: "Version 1.0.0 Free Download (Mac)",
                 link_web: "Try Web Lite Version →",
                 card_draw_title: "The Joy of<br>Pixel Art!",
