@@ -118,6 +118,7 @@
             text-decoration: none; font-weight: 900; font-size: 1.25rem; display: inline-block;
             box-shadow: 0 6px 20px rgba(255, 79, 145, 0.4); border: 3px solid white;
             transition: transform 0.2s, box-shadow 0.2s; animation: pulse-btn 2s infinite;
+            margin-bottom:16px;
         }
         .btn-dl:hover {
             transform: scale(1.05) translateY(-3px); box-shadow: 0 8px 25px rgba(255, 79, 145, 0.5); animation: none;
@@ -285,8 +286,8 @@
             <div class="title-area">
                 <h1>Iron Beads Editor</h1>
                 <p class="subtitle" data-i18n="subtitle">アイロンビーズ作家によるアイロンビーズ作家のためのツール</p>
-                <a href="./Iron_Beads_Editor_1.0.2_universal.dmg" class="btn-dl" data-i18n="btn_dl" id="mac_dl">Version <span class="app_version">1.0.2</span>をダウンロード (Mac)</a>
-                
+                <a href="./Iron_Beads_Editor_1.0.2_universal.dmg" class="btn-dl" data-i18n="btn_dl" id="mac_dl">Version <span class="mac_app_version">1.0.2</span>をダウンロード (Mac)</a><br>
+                <a href="./Iron_Beads_Editor_1.0.2_universal.dmg" class="btn-dl" data-i18n="btn_dl" id="win_dl">Version <span class="win_app_version">1.0.2</span>をダウンロード (Windows)</a>
                 <p class="web-version-link">
                     <a href="./web.html" target="_blank" data-i18n="link_web">Web用簡易版はこちら →</a>
                 </p>
@@ -553,11 +554,14 @@ if (lang === 'en') {
                 const data = await response.json();
                 const versionElements = document.querySelectorAll('.app_version');
                 versionElements.forEach(element => {
-                    element.textContent = data.version;
+                    element.textContent = data.mac_version;
                 });
                 const mac_dl =  document.getElementById('mac_dl');
-                mac_dl.textContent = `Version ${data.version}`;
-                mac_dl.href = `./Iron_Beads_Editor_${data.version}_universal.dmg`;
+                mac_dl.textContent = `Mac Version ${data.mac_version} (Universal)`;
+                mac_dl.href = `./Iron_Beads_Editor_${data.mac_version}_universal.dmg`;
+                const win_dl =  document.getElementById('win_dl');
+                win_dl.textContent = `Windows Version ${data.win_version} (64bit)`;
+                win_dl.href = `./Iron_Beads_Editor_${data.win_version}_x64-setup.exe`;
             } catch (error) {
                 console.error('エラー:', error);
             }
