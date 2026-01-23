@@ -3,12 +3,23 @@ Iron Beads Editor
 
 - [for web](https://kurokky.github.io/web_ibe/web.html)
 - [for mac](https://kurokky.github.io/web_ibe/)
+- [for windows](https://kurokky.github.io/web_ibe/)
 
 ## Bug Fixes
 
+### 1.2.1
+- [x] メニュー表示の重複を修正
+
+### 1.2.0
+- [x] Windows対応
+- [x] ペースト位置がおかしいのを修正
+- [x] コンテキストメニュー対応
+- [x] png保存時に背景色が反映されないのを修正
+- [x] Windowsに合わせて一部ショートカットキー見直し
+
 ### 1.1.1
 - [x] 印刷周りのバグ修正
-- [x] 一部残っていた多言語かを対応
+- [x] 一部残っていた多言語化を対応
 
 ### 1.1.0
 
